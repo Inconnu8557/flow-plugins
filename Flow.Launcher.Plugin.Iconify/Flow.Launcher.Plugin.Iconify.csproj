@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <AssemblyName>Flow.Launcher.Plugin.Iconify</AssemblyName>
+    <RootNamespace>Flow.Launcher.Plugin.Iconify</RootNamespace>
+    <PackageId>Flow.Launcher.Plugin.Iconify</PackageId>
+    <Authors>IconifyPlugin</Authors>
+    <PackageProjectUrl>https://github.com/IconifyPlugin/Flow.Launcher.Plugin.Iconify</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/IconifyPlugin/Flow.Launcher.Plugin.Iconify</RepositoryUrl>
+    <PackageTags>flow-launcher flow-plugin iconify svg icons</PackageTags>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="plugin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="4.4.0" />
+    <PackageReference Include="Svg.Skia" Version="5.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

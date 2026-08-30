@@ -1,0 +1,13 @@
+{
+    "$schema": "https://www.flowlauncher.com/schemas/plugin.schema.json",
+    "ID": "AACC3BDF-5D40-4897-A705-1286E335B613",
+    "ActionKeyword": "iconify",
+    "Name": "Iconify",
+    "Description": "Search and copy Iconify SVG icons without leaving Flow Launcher",
+    "Author": "IconifyPlugin",
+    "Version": "1.0.0",
+    "Language": "csharp",
+    "Website": "https://github.com/IconifyPlugin/Flow.Launcher.Plugin.Iconify",
+    "IcoPath": "Images\\icon.png",
+    "ExecuteFileName": "Flow.Launcher.Plugin.Iconify.dll"
+}
