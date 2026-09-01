@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+    branches: [main]
+    paths:
+      - 'Flow.Launcher.Plugin.Iconify/plugin.json'
+      - 'Flow.Launcher.Plugin.Iconify/**'
+      - '.github/workflows/release.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Flow.Launcher.Plugin.Iconify/plugin.json'
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'Flow.Launcher.Plugin.Iconify/plugin.json'
+          prop_path: 'Version'
+
+      - name: Build and publish
+        run: |
+          dotnet publish Flow.Launcher.Plugin.Iconify/Flow.Launcher.Plugin.Iconify.csproj -c Release -r win-x64 --no-self-contained
+          Remove-Item Flow.Launcher.Plugin.Iconify/bin/Release/win-x64/publish/*.pdb -Force -ErrorAction SilentlyContinue
+          Remove-Item Flow.Launcher.Plugin.Iconify/bin/Release/win-x64/publish/*.xml -Force -ErrorAction SilentlyContinue
+          Compress-Archive -Path Flow.Launcher.Plugin.Iconify/bin/Release/win-x64/publish/* -DestinationPath Iconify.zip -Force
+          Get-ChildItem Iconify.zip | Format-List *
+
+      - name: Publish release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Iconify.zip
+          tag_name: v${{ steps.version.outputs.prop }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
