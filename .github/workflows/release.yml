@@ -15,6 +15,9 @@ on:
     paths:
       - 'Flow.Launcher.Plugin.Iconify/plugin.json'
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: windows-latest
